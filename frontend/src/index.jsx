@@ -1,25 +1,18 @@
 import React from 'react'
 import ReactDom from 'react-dom'
-import { combineReducers, createStore } from 'redux'
-import { Provider } from 'react-redux'
-//import Field from './field'
-//import fieldReducer from './fieldReducer'
+import {createStore, applyMiddleware} from 'redux'
+import {Provider} from 'react-redux'
+import promise from 'redux-promise'
+
 import App from './main/app'
-import counterReducer from './counterReducer'
-import Counter from './counter'
+import reducers from './main/reducers'
 
-// const reducers = combineReducers({
-//     counter: counterReducer
-// })
-
-// ReactDom.render(
-//     <Provider store={createStore(reducers)}>
-//         <Field initialValue='Teste' />
-//     </Provider>
-//     ,document.getElementById('app')
-// )
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+const store = applyMiddleware(promise)(createStore)(reducers, devTools)
 
 ReactDom.render(
-     <App />, 
-  document.getElementById('app')
+    <Provider store={store}>
+        <App />
+    </Provider>
+  , document.getElementById('app')
 )

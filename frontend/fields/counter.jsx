@@ -4,16 +4,17 @@ import {connect} from 'react-redux'
 import {inc, dec, stepChanged} from './counterAction'
 
 const Counter = (props) => (
-    <div>OK</div>
+    <div>
+        <h1>{props.counter.number}</h1>
+        <input onChange={props.stepChanged}
+            value={props.couter.step} type='number' />
+        <button onClick={props.dec}>Dec</button>
+        <button onClick={props.inc}>Inc</button>
+    </div>
 )
 
 const mapStateToProps = state => ({counter: state.counter})
-const mapDispatchtoProps = 
-    dispatch => bindActionCreators({
-        inc,
-        dec,
-        stepChanged
-    }, dispatch)
+const mapDispatchtoProps = dispatch => bindActionCreators({inc, dec, stepChanged}, dispatch)
 
 export default connect(mapStateToProps, mapDispatchtoProps)(Counter)    
 
